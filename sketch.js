@@ -3,9 +3,9 @@ let player;
 let vidaS, vidaN = 4; //sprite y numero
 let bricks;
 let fire;
-let meteor;
+let meteors;
 let fondo;
-let isJumping = false; 
+let isJumping = false;
 
 function preload() {
 	fondo = loadImage('/img/juego.png');
@@ -21,6 +21,8 @@ function setup() {
 	player = new Sprite(200, 350, 28, 50);
     player.friction = 0;
     player.rotationLock = true;
+	player.tile =  't'
+	
 
 	// Estructura
 	// Lógica de los ladrillos
@@ -30,6 +32,7 @@ function setup() {
 	bricks.visible = true;
 	bricks.collider = 'static';
 	bricks.tile = '=';
+    bricks.color =  'white';
 
 	fire = new Group();
 	fire.w = 5;
@@ -38,10 +41,10 @@ function setup() {
 	fire.tile = 'f';
     
 
-	meteor = new Group();
-	meteor.r = 10;
-	meteor.visible = true;
-	meteor.tile = 'm';
+	meteors = new Group();
+	meteors.r = 10;
+	meteors.visible = true;
+	meteors.tile = 'm';
 
     coins = new Group()
     coins.d = 6;
@@ -72,7 +75,7 @@ function setup() {
 			'=............................==..................m........................................................=========....................m................m.....................====...............========....========.....========...========....====.....c...........====.........................====.......',
 			'=..........................==...................................c....................c...................===========.........................................................====................========....========.....========...========....====....====....========..........====...........====...................',
 			'==........................=.................................===========......===============............=============.........................m...........m.................====.................========....========.....========...========....====....====...====......................====....................',
-			'===........c.............=..fffffffffffffffff...............===========ffffff===============...........===============............................................m........===fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff........................',
+			'===.t......c.............=..fffffffffffffffff...............===========ffffff===============...........===============............................................m........===fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff........................',
 			'================================================================================================================================================================================================================================================================================================================================'
 		],
 		1,
@@ -81,15 +84,23 @@ function setup() {
 		bricks.h + 1
 	);
 
+	player.overlaps(coins, collect);
+	player.overlaps(meteors, damage)
 
+}
+
+function damage(player, meteor) {
+	meteor.remove();
+}
+
+function collect(player, coin) {
+	coin.remove();
 }
 
 function draw() {
 	background(200)
 	image(fondo, 0, 0, (height * fondo.width) / fondo.height, height); 
 	movePlayers();
-	damage();
-	collet()
 	
 	// Actualizar la cámara para seguir al jugado
 	camera.x = player.x;  
@@ -119,11 +130,5 @@ function movePlayers() {
     }
 }
 
-function damage() {
-	if (player.overlaps(meteor)) meteor.remove();
-}
 
-function collet() {
-	if (player.overlaps(coins)) coins.remove();
-}
 
