@@ -1,0 +1,15 @@
+html,
+body {
+    background-color: rgb(204, 201, 201);
+    margin: 0;
+    padding: 0;
+    overscroll-behavior: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Ocupa toda la altura de la pantalla */
+}
+
+canvas {
+    border: 1px solid black; /* Opcional: agrega un borde para ver el canvas claramente */
+}
