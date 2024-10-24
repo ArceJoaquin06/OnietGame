@@ -1,8 +1,8 @@
 // Variables
-let player;
+let player, playerImg;
 let vidaS, vidaN = 4; // sprite y número
-let bricks;
-let fire;
+let bricks, bricksImg;
+let fire, fireImg;
 let meteors;
 let fondo, menu;
 let isJumping = false;
@@ -12,7 +12,10 @@ let gameStarted = false; // Variable para controlar si el juego ha empezado
 function preload() {
     fondo = loadImage('/img/juego.png');
     menu = loadImage('/img/menu_fondo.png');
-    // coinImg = loadImage('/img/moneda.png');
+    playerImg = loadImage('/img/Pimg.png');
+    coinImg = loadImage('/img/moneda.png');
+    fireImg = loadImage('/img/fuego.png');
+    bricksImg = loadImage('/img/ladrillo.png');
 }
 
 function setup() {
@@ -27,6 +30,9 @@ function setup() {
     player.rotationLock = true;
     player.tile = 't';
 	player.visible = false;
+    player.scale = 1.5;
+    player.image = playerImg;
+    player.image.scale = 0.33;
 
     // Estructura
     // Lógica de los ladrillos
@@ -37,12 +43,16 @@ function setup() {
     bricks.collider = 'static';
     bricks.tile = '=';
     bricks.color = 'white';
+    bricks.image = bricksImg;
+    bricks.image.scale = 0.0378
 
     fire = new Group();
-    fire.w = 5;
-    fire.h = 2;
+    fire.w = 7;
+    fire.h = 4;
     fire.visible = false;
     fire.tile = 'f';
+    fire.image = fireImg;
+    fire.image.scale = 1.5 
 
     meteors = new Group();
     meteors.r = 10;
@@ -53,6 +63,7 @@ function setup() {
     coins.d = 10;
     coins.tile = 'c';
 	coins.visible = false;
+    coins.image = coinImg;
 
     // Creación de los tiles
     tilesGroup = new Tiles(
