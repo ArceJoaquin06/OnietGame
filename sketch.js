@@ -3,7 +3,7 @@ let player, playerImg;
 let vidaS, vidaN = 4; // sprite y número
 let bricks, bricksImg;
 let fire, fireImg;
-let meteors;
+let meteors, meteorsImg;
 let fondo, menu;
 let isJumping = false;
 let coinImg;
@@ -16,6 +16,7 @@ function preload() {
     coinImg = loadImage('/img/moneda.png');
     fireImg = loadImage('/img/fuego.png');
     bricksImg = loadImage('/img/ladrillo.png');
+    meteorsImg = loadImage('/img/MeteoritoImg.png')
 }
 
 function setup() {
@@ -58,6 +59,8 @@ function setup() {
     meteors.r = 10;
     meteors.visible = false;
     meteors.tile = 'm';
+    meteors.image = meteorsImg;
+    meteors.image.scale = 0.05
 
     coins = new Group();
     coins.d = 10;
